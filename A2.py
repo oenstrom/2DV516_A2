@@ -34,10 +34,13 @@ def sigmoid(X):
 
 def logistic_cost(X, y, beta):
     """Logistic cost"""
-    return -(y.T.dot(np.log(sigmoid(X.dot(beta)))) + ((1-y).T).dot(np.log(1 - sigmoid(X.dot(beta)))))/X.shape[0]
+    ep = 1e-5
+    return -(y.T.dot(np.log(sigmoid(X.dot(beta)) + ep)) + ((1-y).T).dot(np.log(1 - sigmoid(X.dot(beta)) + ep)))/X.shape[0]
 
-def logistic_gradient_descent(X, y, a = 0.01, n = 1000):
+def logistic_gradient_descent(X, y, a = 0.01, n = 1000, with_costs = False):
     b = np.zeros(X.shape[1])
+    costs = []
     for _ in range(n):
         b = b - (a*X.T.dot((sigmoid(X.dot(b)) - y)))/X.shape[0]
-    return b
+        costs.append(logistic_cost(X, y, b))
+    return (b, costs) if with_costs else b
