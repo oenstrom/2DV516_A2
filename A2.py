@@ -1,10 +1,10 @@
 import numpy as np
 
-def mapFeature(X1, X2, D):
+def mapFeature(X1, X2, D, ones = True):
     """From lecture 5: Logistic Regression, modified slightly.
 
     Creates polynomial model of degree D of the given features X1 and X2."""
-    Xe = np.c_[np.ones((len(X1), 1)), X1, X2]
+    Xe = np.c_[np.ones((len(X1), 1)), X1, X2] if ones else np.c_[X1, X2]
     for i in range(2,D+1):
         for j in range(0,i+1):
             Xnew = X1**(i-j)*X2**j
