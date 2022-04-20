@@ -60,8 +60,8 @@ def main():
     ## Exercise 4: Task 4                                                     ##
     ############################################################################
     Xe_d5 = A2.mapFeature(X1, X2, 5)
-    # alpha, N = 17, 1000000
-    alpha, N = 17, 100000
+    # alpha, N = 17, 5000000
+    alpha, N = 7, 200000
     beta, costs = A2.logistic_gradient_descent(Xe_d5, y, alpha, N, with_costs=True)
     print("Hyperparameters:")
     print(f"  α = {alpha}")
