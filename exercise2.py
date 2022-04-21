@@ -25,10 +25,12 @@ def main():
         B = A2.normal_eq(Xe, y)
         plt.subplot(2, 2, i)
         plt.gca().set_title(f"cost = {np.round(A2.cost(Xe, y, B), 2)}")
-        plt.scatter(X, y, marker=".", c="None", edgecolors="black")
-        plt.plot(X, np.dot(Xe, B))
-        plt.xlabel("Year (0=1975)")
+        # plt.scatter(X, y, marker=".", c="None", edgecolors="black")
+        plt.plot(X + 1975, y, ".-", label="Original data")
+        plt.plot(X + 1975, np.dot(Xe, B), label=f"Model d={i}")
+        plt.xlabel("Year")
         plt.ylabel("Index")
+        plt.legend()
     plt.tight_layout()
 
     ############################################################################

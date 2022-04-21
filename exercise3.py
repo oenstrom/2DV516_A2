@@ -31,10 +31,10 @@ def main():
     print()
 
     plt.figure("Cost over iterations", figsize=(12, 7))
-    plt.suptitle(f"α = {alpha}, N = {N}  (50 first rows skipped in plot)")
+    plt.suptitle(f"α = {alpha}, N = {N}")
     plt.xlabel("Iterations (N)")
     plt.ylabel("Cost (J)")
-    plt.plot(range(N)[50:], costs[50:])
+    plt.plot(range(N), costs)
 
 
     ############################################################################
@@ -66,4 +66,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # plt.show()
+    plt.show()
