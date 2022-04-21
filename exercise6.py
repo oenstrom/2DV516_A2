@@ -1,7 +1,4 @@
-from audioop import cross
-import matplotlib
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import mean_squared_error
