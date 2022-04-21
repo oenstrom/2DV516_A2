@@ -1,4 +1,6 @@
 import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 
 def mapFeature(X1, X2, D, ones = True):
     """From lecture 5: Logistic Regression, modified slightly.
@@ -55,3 +57,18 @@ def logistic_gradient_descent(X, y, a = 0.01, n = 1000, with_costs = False):
         b = b - (a*X.T.dot((sigmoid(X.dot(b)) - y)))/X.shape[0]
         costs.append(logistic_cost(X, y, b))
     return (b, costs) if with_costs else b
+
+def forward_selection(X, y, as_indexes=False):
+    """Forward selection on X using MSE to select the best features."""
+    lr = LinearRegression()
+    idxs = []
+    while len(idxs) < X.shape[1]:
+        mse = []
+        k_list = [i for i in range(X.shape[1]) if i not in idxs]
+        for k in k_list:
+            Xe = X[:, idxs + [k]] if len(idxs) > 0 else X[:, k].reshape(-1, 1)
+            lr.fit(Xe, y)
+            y_pred = lr.predict(Xe)
+            mse.append(mean_squared_error(y, y_pred))
+        idxs.append(k_list[np.array(mse).argmin()])
+    return np.array(idxs) if as_indexes else (np.array(idxs) + 1)
