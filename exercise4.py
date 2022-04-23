@@ -24,9 +24,7 @@ def main():
     # -11.8224845 ]
     # 0.34808750706317243
 
-    ############################################################################
-    ## Exercise 4: Task 2                                                     ##
-    ############################################################################
+    # Task 2
     Xe = np.c_[np.ones((X.shape[0], 1)), X1, X2, X1**2, X1*X2, X2**2]
     alpha, N = 5, 10000
     beta, costs = A2.logistic_gradient_descent(Xe, y, alpha, N, with_costs=True)
@@ -44,8 +42,8 @@ def main():
 
 
     test_grid_e = np.c_[np.ones(xx.shape), xx, yy, xx**2, xx*yy, yy**2]
-    p_grid = A2.sigmoid(np.dot(test_grid_e, beta))
-    pp = np.round(A2.sigmoid(np.dot(Xe, beta)))
+    p_grid = A2.predict_probability(test_grid_e, beta)
+    pp = np.round(A2.predict_probability(Xe, beta))
 
     plt.subplot(1, 2, 2)
     plt.gca().set_title(f"Training errors = {np.sum(y!=pp)}")
@@ -56,11 +54,8 @@ def main():
     plt.scatter(X1, X2, c=y, cmap=ListedColormap(["red", "green"]), marker=".")
 
 
-    ############################################################################
-    ## Exercise 4: Task 4                                                     ##
-    ############################################################################
+    # Task 4
     Xe_d5 = A2.mapFeature(X1, X2, 5)
-    # alpha, N = 17, 5000000
     alpha, N = 7, 200000
     beta, costs = A2.logistic_gradient_descent(Xe_d5, y, alpha, N, with_costs=True)
     print("Hyperparameters:")
@@ -77,8 +72,8 @@ def main():
 
 
     test_grid_e = A2.mapFeature(xx, yy, 5)
-    p_grid = A2.sigmoid(np.dot(test_grid_e, beta))
-    pp = np.round(A2.sigmoid(np.dot(Xe_d5, beta)))
+    p_grid = A2.predict_probability(test_grid_e, beta)
+    pp = np.round(A2.predict_probability(Xe_d5, beta))
 
     plt.subplot(1, 2, 2)
     plt.gca().set_title(f"Training errors = {np.sum(y!=pp)}")

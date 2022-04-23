@@ -6,6 +6,7 @@ from sklearn.model_selection import cross_val_predict
 from A2 import mapFeature
 
 def plot_decision(lr, d_list, X1, X2, y):
+    """Plot decision boundary for multiple degrees and return cross validation errors."""
     grid_size = 1000
     x_min, x_max = X1.min() - 0.1, X1.max() + 0.1
     y_min, y_max = X2.min() - 0.1, X2.max() + 0.1

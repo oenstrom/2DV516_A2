@@ -8,12 +8,12 @@ def main():
 
     X = data[:, :-1]
     y = data[:, -1]
-    Xn = A2.normalize(X, X) # Exercise 1: Task 1
+
+    # Task 1
+    Xn = A2.normalize(X, X)
     Xne = A2.extend_matrix(Xn)
 
-    ############################################################################
-    ## Exercise 1: Task 2                                                     ##
-    ############################################################################
+    # Task 2
     plt.figure("Features and result", figsize=(12, 7))
     for i in range(Xn.shape[1]):
         plt.subplot(2, 3, 1 + i)
@@ -24,9 +24,7 @@ def main():
     plt.tight_layout()
 
 
-    ############################################################################
-    ## Exercise 1: Task 3                                                     ##
-    ############################################################################
+    # Task 3
     beta = A2.normal_eq(Xne, y)
     uc = np.array([2432, 1607, 1683, 8, 8, 256])
     uc_n = A2.normalize(uc, X)
@@ -34,16 +32,12 @@ def main():
     print("     Result:", np.dot(np.append([1], uc_n), beta))
     print()
 
-    ############################################################################
-    ## Exercise 1: Task 4                                                     ##
-    ############################################################################
+    # Task 4
     print("4. Cost using Beta computed by the normal equation: ")
     print("     Cost:", A2.cost(Xne, y, beta))
     print()
 
-    ############################################################################
-    ## Exercise 1: Task 5                                                     ##
-    ############################################################################
+    # Task 5
     alpha, iterations = 0.4, 3000
     beta_grad = A2.gradient_descent(Xne, y, a = alpha, n = iterations)
     print("5. Gradient descent:")

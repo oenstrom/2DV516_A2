@@ -51,12 +51,17 @@ def logistic_cost(X, y, beta):
     return -(y.T.dot(np.log(sigmoid(X.dot(beta)) + ep)) + ((1-y).T).dot(np.log(1 - sigmoid(X.dot(beta)) + ep)))/X.shape[0]
 
 def logistic_gradient_descent(X, y, a = 0.01, n = 1000, with_costs = False):
+    """Perform logistic gradient descent on the given X"""
     b = np.zeros(X.shape[1])
     costs = []
     for _ in range(n):
         b = b - (a*X.T.dot((sigmoid(X.dot(b)) - y)))/X.shape[0]
         costs.append(logistic_cost(X, y, b))
     return (b, costs) if with_costs else b
+
+def predict_probability(X, beta):
+    """Use sigmoid to predict the probability of X using the provided betas."""
+    return sigmoid(np.dot(X, beta))
 
 def forward_selection(X, y, as_indexes=False):
     """Forward selection on X using MSE to select the best features."""

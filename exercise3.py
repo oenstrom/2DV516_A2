@@ -37,31 +37,19 @@ def main():
     plt.plot(range(N), costs)
 
 
-    ############################################################################
-    ## Exercise 3: Task 4                                                     ##
-    ############################################################################
-    p = A2.sigmoid(np.dot(Xne_train, beta))
+    # Task 4
+    p = A2.predict_probability(Xne_train, beta)
     pp = np.round(p)
     print("Training errors:", np.sum(y_train!=pp))
     print("Training accuracy:", np.round(100*np.sum(y_train==pp)/np.size(pp), 5), "%")
     print()
 
 
-    ############################################################################
-    ## Exercise 3: Task 5                                                     ##
-    ############################################################################
-    p_test = A2.sigmoid(np.dot(Xne_test, beta))
+    # Task 5
+    p_test = A2.predict_probability(Xne_test, beta)
     pp_test = np.round(p_test)
     print("Test errors:", np.sum(y_test!=pp_test))
     print("Test accuracy:", np.round(100*np.sum(y_test==pp_test)/np.size(pp_test), 5), "%")
-
-
-    # Yes they are qualitatively the same. There are only small differences in both the training accuracy and test accuracy.
-    # Yes they depend on how many observations I put aside for testing. At 20% test, the test accuracy were really close
-    # to the training accuracy and many times above.
-    # At 50% test, the test accuracy went down slightly and were often below the training accuracy.
-    # At 90% test, there are just not enough training data. The test accuracy is really unreliable, with accuracies sometimes under 88%.
-    # IT DOESN'T AFFECT IT SO MUCH THOUGH! WRITE SOMETHING BETTER ABOUT IT!
 
 
 if __name__ == "__main__":
