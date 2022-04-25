@@ -10,19 +10,21 @@ def main():
     X = data[:, :-1]
     y = data[:, -1]
 
-
-    models = A2.forward_selection(X, y, as_indexes=False)
-    lr = LinearRegression()
-    cross_mses = []
-    for fs in range(1, len(models) + 1):
-        m = models[:fs] - 1
-        y_pred = cross_val_predict(lr, X[:, m], y, cv=3)
-        mse = mean_squared_error(y, y_pred)
-        cross_mses.append(mse)
-        print(f"{len(m)} feature(s) model MSE: {mse}")
-    cross_mses = np.array(cross_mses)
-    print(f"Best model: {models[:cross_mses.argmin() + 1]}")
-    print(f"Most important feature: {models[0]}")
+    for use_cross in [False, True]:
+        print(f"Cross validation inside the algorithm? {use_cross}")
+        models = A2.forward_selection(X, y, cross_val=use_cross, as_indexes=False)
+        lr = LinearRegression()
+        cross_mses = []
+        for fs in range(1, len(models) + 1):
+            m = models[:fs] - 1
+            y_pred = cross_val_predict(lr, X[:, m], y, cv=3)
+            mse = mean_squared_error(y, y_pred)
+            cross_mses.append(mse)
+            print(f"{len(m)} feature(s) model MSE: {mse}")
+        cross_mses = np.array(cross_mses)
+        print(f"Best model: {models[:cross_mses.argmin() + 1]}")
+        print(f"Most important feature: {models[0]}")
+        print("\n-----------------------------------------\n")
 
 
 if __name__ == "__main__":

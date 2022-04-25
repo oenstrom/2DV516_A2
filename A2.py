@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import cross_val_predict
 
 def mapFeature(X1, X2, D, ones = True):
     """From lecture 5: Logistic Regression, modified slightly.
@@ -63,7 +64,7 @@ def predict_probability(X, beta):
     """Use sigmoid to predict the probability of X using the provided betas."""
     return sigmoid(np.dot(X, beta))
 
-def forward_selection(X, y, as_indexes=False):
+def forward_selection(X, y, cross_val=False, as_indexes=False):
     """Forward selection on X using MSE to select the best features."""
     lr = LinearRegression()
     idxs = []
@@ -73,7 +74,8 @@ def forward_selection(X, y, as_indexes=False):
         for k in k_list:
             Xe = X[:, idxs + [k]] if len(idxs) > 0 else X[:, k].reshape(-1, 1)
             lr.fit(Xe, y)
-            y_pred = lr.predict(Xe)
+            # y_pred = lr.predict(Xe)
+            y_pred = lr.predict(Xe) if not cross_val else cross_val_predict(lr, Xe, y, cv=3)
             mse.append(mean_squared_error(y, y_pred))
         idxs.append(k_list[np.array(mse).argmin()])
     return np.array(idxs) if as_indexes else (np.array(idxs) + 1)
